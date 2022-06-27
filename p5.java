@@ -58,8 +58,8 @@ class RepCust implements ActionListener{
   }
   public void actionPerformed(ActionEvent e){
     try{
-      Class.forName("com.mysql.jdbc.driver");
-      String url="jdbc/mysql://localhost:3306/mydb";
+      Class.forName("com.mysql.jdbc.Driver");
+      String url="jdbc:mysql://localhost:3306/mydb";
       Connection conn= DriverManager.getConnection(url,"root","");
       System.out.println("Connection established");
       Statement stmt = conn.createStatement();
@@ -81,7 +81,7 @@ class RepCust implements ActionListener{
         String n = "Select * from Representative where repno in (Select repno from Customer where credit_limit > 15000);";
         ResultSet rs = stmt.executeQuery(n);
         while(rs.next()){
-          filter.append("Representative num : "+repnum.getText()+"\nRepresentative name :"+repname.getText());
+          filter.append("Representative num : "+rs.getString("repnum")+"\nRepresentative name :"+rs.getString("repname"));
         }
         
       }
